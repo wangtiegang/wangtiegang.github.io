@@ -125,7 +125,7 @@ tags:
 
 #### 使用react-pdf组件
 
-  > 本项目使用react + ant design pro + springboot开发，前后端分离。由于刚接触react，不知道怎么集成PDFObject.js，隐约感觉也不太适合，于是github找到了一个react的开源组件： [react-pdf][https://github.com/wojtekmaj/react-pdf] ，需要注意的是，还有一个star数更多的同名库，那个是在线创建pdf的组件，不能搞错了。
+  > 本项目使用react + ant design pro + springboot开发，前后端分离。由于刚接触react，不知道怎么集成PDFObject.js，隐约感觉也不太适合，于是github找到了一个react的开源组件： [react-pdf](https://github.com/wojtekmaj/react-pdf) ，需要注意的是，还有一个star数更多的同名库，那个是在线创建pdf的组件，不能搞错了。
 
   > 按照官方教程进程demo测试，使用方式非常简单，显示也很正常，但是问题来了，只要对pdf的内容进行选中，就会发现选中的文字是错位的，无法忍受。
 
@@ -143,9 +143,9 @@ tags:
 
   > 本前端龙套经过各种挣扎之后，突然意识到为什么不直接在react中使用``` <embed> ```、``` <frame> ``` 、``` <object> ``` 标签呢？于是尝试了一下。
 
-  ##### 前端直接使用 ``` <embed> ``` 标签
+##### 前端直接使用 ``` <embed> ``` 标签
 
-    ```react
+  ```react
     render() {
       return ({detail.previewStatus === 'playable' && detail.src ? (
         <embed
@@ -156,43 +156,41 @@ tags:
           <Alert message="文档不支持预览，请下载后查看" type="info" showIcon />
       )});
     }
-    ```
+  ```
 
-  ##### 后端直接返回pdf对象
+##### 后端直接返回pdf对象
 
-    ```java
+  ```java
     @GetMapping(value = "/knowledge/preview", produces = "application/pdf")
     public FileSystemResource preview(String src) {
     	return new FileSystemResource(src);
     }
-    ```
+  ```
 
-  ##### 实现效果
+##### 实现效果
 
-    ![image-20190526194236017](/img/in-post/2019-05/post-pdf-preview-3.png)
+  ![image-20190526194236017](/img/in-post/2019-05/post-pdf-preview-3.png)
 
-    > **这个地方可以看到pdf的标题是乱码，各种折腾之后发现是个坑**
+  > **这个地方可以看到pdf的标题是乱码，各种折腾之后发现是个坑**
 
-  ##### pdf标题乱码
+##### pdf标题乱码
 
-    > 在发现标题乱码的问题之后，第一反应是因为浏览器直接编码的问题导致，我后端直接返回spring 的 FileSystemResource 对象，没地方设置，于是改成了Jquery下读取文件流写入response的方式进行pdf对象返回，但是不起效果，各种尝试之后都解决不了。
+  > 在发现标题乱码的问题之后，第一反应是因为浏览器直接编码的问题导致，我后端直接返回spring 的 FileSystemResource 对象，没地方设置，于是改成了Jquery下读取文件流写入response的方式进行pdf对象返回，但是不起效果，各种尝试之后都解决不了。
 
-    > 另外一种方式是将预览的标题给隐藏掉，这个不是必须的，但是查看了W3C文档后发现``` <embed> ``` 标签没有这个属性，换成 ``` <object> ``` 或 ``` <frame> ``` 标签也不行，但是找到可以隐藏整个工具栏的方法，在src属性链接的结尾加上参数可以对预览样式进行控制。
-    >
-    > ```html
-    > <!-- #后面的参数控制pdf预览效果 -->
-    > <embed src="http://URL_TO_PDF.com/pdf.pdf#toolbar=0&navpanes=0&scrollbar=0" width="425" height="425">
-    > ```
-    >
-    > 更多参数参考 [Adobe参数官方文档][https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf]
+  > 另外一种方式是将预览的标题给隐藏掉，这个不是必须的，但是查看了W3C文档后发现``` <embed> ``` 标签没有这个属性，换成 ``` <object> ``` 或 ``` <frame> ``` 标签也不行，但是找到可以隐藏整个工具栏的方法，在src属性链接的结尾加上参数可以对预览样式进行控制。
+  >
+  > ```html
+  > <!-- #后面的参数控制pdf预览效果 -->
+  > <embed src="http://URL_TO_PDF.com/pdf.pdf#toolbar=0&navpanes=0&scrollbar=0" width="425" height="425">
+  > ```
+  >
+  > 更多参数参考 [Adobe参数官方文档](https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf)
 
-    > 在纠结隐藏工具栏会导致跳页，旋转，打印按钮无法使用的时候，突然发现文档名称被我修改成英文之后，还是显示乱码，清除浏览器缓存后也还是乱码。于是下载pdf文档用软件打开，点击属性，发现被坑了，预览显示的是pdf的标题属性，并不是文件名，撤销隐藏工具栏，皆大欢喜。
-    >
-    > ![image-20190526202045234](/img/in-post/2019-05/post-pdf-preview-4.png)
+  > 在纠结隐藏工具栏会导致跳页，旋转，打印按钮无法使用的时候，突然发现文档名称被我修改成英文之后，还是显示乱码，清除浏览器缓存后也还是乱码。于是下载pdf文档用软件打开，点击属性，发现被坑了，预览显示的是pdf的标题属性，并不是文件名，撤销隐藏工具栏，皆大欢喜。
+  >
+  > ![image-20190526202045234](/img/in-post/2019-05/post-pdf-preview-4.png)
 
-  
-
-  ### 关于使用OpenOffice将文档转成pdf
+### 关于使用OpenOffice将文档转成pdf
 
   > Word，Excel，Ppt预览的方案从一开始觉得最好是能在线打开，能跟本地打开一样查看。网上查询之后，大概了解了几种方式。
 
