@@ -13,7 +13,6 @@ tags:
 > 最近两个项目都有Pdf、Word、Excel、Ppt在线预览的需求，其中Office相关的文件也是转换成Pdf的方式进行预览。一个项目前端使用jquery技术栈，另外一个使用react技术栈，在这上面花了不少时间，做些记录，方便下次查询。
 
 
-
 ### jquery项目pdf预览
 
 > **在网上了解了一下之后，发现有如下几种方式可以实现Pdf预览**
@@ -44,11 +43,9 @@ tags:
   </tr>
 </table>
 
-
-
 > **由于是内部Web项目，用户少且容忍度高，不需要考虑各浏览器兼容及移动端浏览等情况，所以简单了解后选定PDFObject.js方式，指定使用Chrome浏览器。**
 
-* #### 前端引入PDFObject.js文件。
+#### 前端引入PDFObject.js文件。
 
 ```html
 <!-- 引入pdfobject -->
@@ -79,9 +76,7 @@ tags:
 </body>
 ```
 
-
-
-* #### 后端返回pdf文件流。
+#### 后端返回pdf文件流。
 
   ```java
   public void preview(HttpServletResponse response, Long fileId, String userAgent){
@@ -121,17 +116,14 @@ tags:
   }
   ```
 
-  
-
 > 使用此种方式最好是每次打开一个新的标签页，这样方便用户同时打开几个pdf文档，效果显示如下：
 
 ![post-pdf-preview](/img/in-post/2019-05/post-pdf-preview-1.png)
 
 
-
 ### React项目pdf预览
 
-* #### 使用react-pdf组件
+#### 使用react-pdf组件
 
   > 本项目使用react + ant design pro + springboot开发，前后端分离。由于刚接触react，不知道怎么集成PDFObject.js，隐约感觉也不太适合，于是github找到了一个react的开源组件： [react-pdf][https://github.com/wojtekmaj/react-pdf] ，需要注意的是，还有一个star数更多的同名库，那个是在线创建pdf的组件，不能搞错了。
 
@@ -147,13 +139,11 @@ tags:
 
   > 由于react-pdf是移植于pdf.js项目的，所以在将pdf渲染成canvas后还无法选取内容，这个时候在canvas之上再渲染一个透明的text layer层实现选取复制。遗憾的是，我使用的是最新版本，但依然存在这个问题，进入组件的官网demo，发现存在相同的问题。由于解决不了，只能放弃使用这个组件，目前还没找到合适的react组件。
 
-
-
-* #### 使用``` <embed> ```标签实现pdf预览
+#### 使用``` <embed> ```标签实现pdf预览
 
   > 本前端龙套经过各种挣扎之后，突然意识到为什么不直接在react中使用``` <embed> ```、``` <frame> ``` 、``` <object> ``` 标签呢？于是尝试了一下。
 
-  * ##### 前端直接使用 ``` <embed> ``` 标签
+  ##### 前端直接使用 ``` <embed> ``` 标签
 
     ```react
     render() {
@@ -168,7 +158,7 @@ tags:
     }
     ```
 
-  * ##### 后端直接返回pdf对象
+  ##### 后端直接返回pdf对象
 
     ```java
     @GetMapping(value = "/knowledge/preview", produces = "application/pdf")
@@ -177,13 +167,13 @@ tags:
     }
     ```
 
-  * ##### 实现效果
+  ##### 实现效果
 
     ![image-20190526194236017](/img/in-post/2019-05/post-pdf-preview-3.png)
 
     > **这个地方可以看到pdf的标题是乱码，各种折腾之后发现是个坑**
 
-  * ##### pdf标题乱码
+  ##### pdf标题乱码
 
     > 在发现标题乱码的问题之后，第一反应是因为浏览器直接编码的问题导致，我后端直接返回spring 的 FileSystemResource 对象，没地方设置，于是改成了Jquery下读取文件流写入response的方式进行pdf对象返回，但是不起效果，各种尝试之后都解决不了。
 
@@ -202,7 +192,7 @@ tags:
 
   
 
-* ### 关于使用OpenOffice将文档转成pdf
+  ### 关于使用OpenOffice将文档转成pdf
 
   > Word，Excel，Ppt预览的方案从一开始觉得最好是能在线打开，能跟本地打开一样查看。网上查询之后，大概了解了几种方式。
 
