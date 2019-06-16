@@ -11,6 +11,8 @@ tags:
     - CXF
 ---
 
+> 最近需要为业务系统提供数据服务，包括json数据和文件，于是先了解一下利用cxf发布WebService服务，对数据传输，安全验证，文件传输进行测试，看看是否有问题。
+
 ### 添加CXF的maven依赖
 进入官网查看文档，发现使用cxf基础功能，只需要添加两个依赖。
 ```
@@ -83,6 +85,7 @@ tags:
 ### 发布restful WebService服务
 
 > 想使用restful风格，官网有三种方式可选，如果选择JAX-RS方式，需要添加如下依赖
+
 ```
 <dependency>
     <groupId>org.apache.cxf</groupId>
@@ -93,6 +96,7 @@ tags:
 
 * 新建服务接口
   > 经过测试，接口上加不加注解都行
+
   ```java
   public interface IYYYContractService {
 
@@ -102,6 +106,7 @@ tags:
   ```
 
 * 实现类
+  
   ```java
   public class YYYContractServiceImpl implements IYYYContractService {
     /**
@@ -120,6 +125,7 @@ tags:
   
 * 在spring context配置文件中添加bean声明
   > 此处声明使用rs的标签，跟普通WebService有区别
+
   ```
   <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -143,6 +149,7 @@ tags:
 
 ### 问题
 > cxf发布服务的代码比较简单，配置多一些，不细心也容易出现问题，一下是碰到的一些问题
+
 * 在服务发布之后，直接在浏览器地址中访问服务器，一直报404
   **这个一般是因为调用服务的时候地址写的不对**。一开始我在spring context文件中配置的address是/sayHi，我服务类中的Path也是/sayHi，启动服务后，页面显示的是 ```http://localhost:9090/ws/sayHi``` ，我误以为是sayHi方法服务地址，实际上这个地方显示的是你配置的address，服务类的地址，没有到具体方法.sayHi方法的地址实际是 ```http://localhost:9090/ws/sayHi/sayHi```。
 
