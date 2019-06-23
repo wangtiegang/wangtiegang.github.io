@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "2019-06-23-Mac配置linux密钥登陆及rz|sz命令"
+title:      "Mac配置linux密钥登陆及rz|sz命令"
 subtitle:   " \"生成rsa密钥对，安装lrzsz\""
 date:       2019-06-23 18:38:00
 author:     "wangtiegang"
