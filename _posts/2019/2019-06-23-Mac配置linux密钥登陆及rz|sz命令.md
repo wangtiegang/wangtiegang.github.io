@@ -73,7 +73,7 @@ ssh -i /Users/wangtiegang/.ssh/wangtiegang wangtiegang@10.xxx.xx.12 -p 8822
 
 ### Mac支持rz|sz命令
 
-rz|sz命令是非要好用的文件上传下载命令，在Windows的ssh软件中都有比较好的支持，在Mac中想使用得做些配置才行。
+rz/sz命令是非要好用的文件上传下载命令，在Windows的ssh软件中都有比较好的支持，在Mac中想使用得做些配置才行。
 
 * 确认服务器是否安装lrzsz
   
@@ -90,7 +90,7 @@ rz|sz命令是非要好用的文件上传下载命令，在Windows的ssh软件�
 
 * Mac安装iTerm2
   
-  Mac自带得命令终端不支持rz|sz，需要安装一个iTerm2，直接去 [官网](https://www.iterm2.com/) 下载安装即可
+  Mac自带得命令终端不支持rz/sz，需要安装一个iTerm2，直接去 [官网](https://www.iterm2.com/) 下载安装即可
 
 * 安装Homebrew
   
