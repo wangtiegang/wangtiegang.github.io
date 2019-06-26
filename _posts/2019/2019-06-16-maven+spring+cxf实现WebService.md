@@ -290,3 +290,23 @@ Interceptors（拦截器）是CXF内部基本处理单元，调用WebService服�
   这个不是因为代码或配置有问题，是因为最新版本使用的某些依赖太新了，比如使用了jdk9的特性，但是我的jdk还是1.8，或者其他依赖，对此不想查具体是哪个导致的，直接将cxf版本降级到3.1.7，问题解决。
 
 * cxf可以直接将一个类发布为WebService服务，但是官方推荐先定义一个接口，再通过实现类去实现服务。实际测试中发现，如果一个类实现了服务接口，则实现类中的服务方法都必须在接口中存在，否则请求的时候后台会报错，报错信息会直接提示需要在接口中定义方法。不知道是不是没有定义接口的时候，cxf会自动生成接口，而定义了的时候不再生成，则需要自己在接口中定义所有方法。总之注意下就好了。
+
+* cxf返回json数据乱码问题
+  
+  在Postman中测试接口时，发现返回数据中文乱码，看起来像unicode编码，但是实际转换又不是
+
+  ![cxf-5](/img/in-post/2019-06/cxf-5.png)
+
+  在返回xml格式的时候不存在这个问题，推测可能跟jackson将xml转换成json过程有关系。找不到相关资料证实，但是这个问题可以修改方法注解 ```@Produces(MediaType.APPLICATION_JSON)``` 为 ```@Produces(MediaType.APPLICATION_JSON+";charset=utf-8")``` 解决，utf-8不行的话，可以试试gbk等其他编码方式。
+
+  ![cxf-6](/img/in-post/2019-06/cxf-6.png)
+  
+* 调用服务报错：javax.ws.rs.ClientErrorException: HTTP 405 Method Not Allowed
+  
+  ![cxf-7](/img/in-post/2019-06/cxf-7.png)
+
+  这个实在是坑了我一把，在cxf服务汇总展示页面显示的地址有可能是错误的，比如我系统使用了nginx代理，网址是https，但是cxf展示的却是http
+
+  ![cxf-8](/img/in-post/2019-06/cxf-8.png)
+
+  本来这个也不至于太坑，**但是如果是@GET方法，通过http也能正常请求到服务，如果是@POST就会报405**，所以一开始一个行一个不行感觉很诡异，一下没注意到复制过来的地址是http，折腾了很久，修改成https就一切正常了。
