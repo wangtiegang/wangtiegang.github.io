@@ -52,7 +52,7 @@ passwd oracle
 
 #### 设置/etc/security/limits.conf（root）
 
-> 在文件尾追加如下内容，其中@dba为oracle用户归属的系统用户组
+> 在文件尾追加如下内容，修改限制，增加oracle性能
 
 ```shell
 @dba hard nofile 65536
