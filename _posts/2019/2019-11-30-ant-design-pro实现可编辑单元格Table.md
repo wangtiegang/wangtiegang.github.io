@@ -37,7 +37,7 @@ ant design 是一个非常优秀的 react 前端组件库，如果使用ant desi
 
 * 在项目的通用组件文件加下新建一个目录 ```EditableTable```，并新建如下文件
   
-```EditableContext.jsx```
+EditableContext.jsx
 ----
 
 ```javascript
@@ -49,7 +49,7 @@ const EditableContext = React.createContext();
 export default EditableContext;
 ```
 
-```EditableFormRow.jsx```
+EditableFormRow.jsx
 ----
 
 ```javascript
@@ -73,7 +73,7 @@ const EditableFormRow = Form.create()(EditableRow);
 export default EditableFormRow;
 ```
 
-```EditableCell.jsx```
+EditableCell.jsx
 ----
 
 ```javascript
@@ -178,7 +178,7 @@ class EditableCell extends React.Component {
 export default EditableCell;
 ```
 
-```index.jsx```
+index.jsx
 ----
 
 ```javascript
@@ -251,7 +251,7 @@ export default EditableTable;
 
 在 pages 文件夹下新建一个页面，在 config 中配置好路由，然后加入以下几个文件
 
-```index.jsx```
+index.jsx
 ----
 
 ```javascript
@@ -438,7 +438,7 @@ class Template extends Component {
 export default Template;
 ```
 
-```model.js```
+model.js
 ----
 
 ```javascript
@@ -564,7 +564,7 @@ const Model = {
 export default Model;
 ```
 
-```service.js```
+service.js
 ----
 
 ```javascript
@@ -590,7 +590,7 @@ export async function fetchTmlCols() {
 }
 ```
 
-```_mock.js```
+_mock.js
 ----
 
 ```javascript
