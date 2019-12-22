@@ -2,7 +2,7 @@
 layout:     post
 title:      "搭建springboot多模块项目"
 subtitle:   ""
-date:       2019-11-24 15:37:00
+date:       2019-12-22 16:50:00
 author:     "wangtiegang"
 header-img: ""
 catalog: true
