@@ -2,7 +2,7 @@
 layout:     post
 title:      "React PropTypes"
 subtitle:   ""
-date:       2019-07-19 19:23:00
+date:       2020-07-19 19:23:00
 author:     "wangtiegang"
 header-img: ""
 catalog: false
